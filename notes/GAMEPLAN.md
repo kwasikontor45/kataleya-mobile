@@ -412,3 +412,15 @@ while the phone is unavailable. Check the current Kataleya beta TWA or installed
 viewport, including startup, wave interaction, sound default/off behavior, reduced motion, and
 touch responsiveness. Keep the no-Google-account setup intact; sideload an existing beta APK if
 needed. Use the results to decide whether the PWA/TWA needs tuning before considering native work.
+
+## 2026-10-02 · Kataleya contrast and Khaos Waydroid status
+
+Raised baseline surface/text contrast across the Kataleya PWA, including hints, navigation,
+settings, archive metadata, Mirror diagnostics, and controls; added `prefers-contrast: more`
+overrides and refreshed the service-worker shell to v10. Deployed with `arc deploy kontor-studio`;
+the live app shell returned HTTP 200. Physical-device visual QA remains pending.
+
+Added a Waydroid status tile to the bottom-right of the Khaos Status dashboard, beside Notify
+stack. It reads `arc-waydroid status` every 15 seconds and never starts the container. When stopped,
+it shows “stopped · manual start”; when active, it includes Android session and Weston window state.
+Panel source is the installed symlink target in `arc-toolkit/bin/khaos-lab`.
