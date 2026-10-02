@@ -382,3 +382,33 @@ without waiting; hold off on copy/description drafting until direction is cleare
 4. Verify icon/adaptive-icon assets against current Play spec — Claude Code.
 5. Continue the design conversation in chat — visual direction and what's carried forward vs.
    reimagined in Phase 2's room screen — before Claude Code starts Phase 1's architecture work.
+
+## 2026-10-01 · Kataleya wave accessibility + mobile performance pass (deployed)
+
+Worked in `kontor-studio/kataleya-demo`, the live web/PWA source used by the Android TWA. The Expo
+`kataleya-mobile` project remains an empty scaffold; no native app or Android wrapper changes were
+needed for this pass.
+
+- Added a persisted wave-sound switch in the exercise and Settings. Sound defaults off, uses short
+  locally generated soft tones at the start/crest/passing moments, and can be silenced immediately.
+  No audio files, third-party libraries, requests, permissions, or user data were added.
+- Kept the orb's rise/crest/recede arc; added a very slow 18-degree drift and a softer opacity halo.
+  Reduced-motion preference now keeps the wave orb at a steady size and removes the halo transition.
+- The shared breathing loop now updates only visible-screen orbs/canvases, drops disconnected
+  entries, and sleeps while the document is hidden. Wave copy is written only when its phase changes.
+- Bumped the service-worker shell cache so an updated install also gets the new behavior offline.
+- `node --check kataleya-demo/app.js`, `node --check kataleya-demo/sw.js`, and `git diff --check`
+  passed. Commit `07ebfc4` was pushed to both configured remotes and deployed via
+  `arc deploy kontor-studio`. Live checks returned HTTP 200 for the app shell and confirmed the
+  new `waveSound`/mute/foreground-loop code and `kataleya-shell-v9` service worker. Physical-device
+  interaction and performance QA were unavailable; reduced background work is an expected
+  improvement, not a measured result.
+
+## Next project milestone · Kataleya in the existing Waydroid environment
+
+Waydroid was already installed, initialized, and privacy-sanitized on 2026-08-23 (see the shared
+SOT and security reference); the next task is not a fresh install. Use it as the Android test target
+while the phone is unavailable. Check the current Kataleya beta TWA or installed PWA at a phone
+viewport, including startup, wave interaction, sound default/off behavior, reduced motion, and
+touch responsiveness. Keep the no-Google-account setup intact; sideload an existing beta APK if
+needed. Use the results to decide whether the PWA/TWA needs tuning before considering native work.
